@@ -146,6 +146,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="beziercurveevaluator.cpp" />
+    <ClCompile Include="c2interpolatingcurveevaluator.cpp" />
+    <ClCompile Include="catnullromcurveevaluator.cpp" />
     <ClCompile Include="curve.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -260,6 +263,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="beziercurveevaluator.h" />
+    <ClInclude Include="c2interpolatingcurveevaluator.h" />
+    <ClInclude Include="catnullromcurveevaluator.h" />
     <ClInclude Include="curve.h" />
     <ClInclude Include="curveevaluator.h" />
     <ClInclude Include="InverseKinematics.h" />
@@ -267,6 +273,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="mat.h" />
+    <ClInclude Include="matrix.h" />
     <ClInclude Include="Metaball.h" />
     <ClInclude Include="modelerdraw.h" />
     <ClInclude Include="modelerglobals.h" />
@@ -274,7 +281,6 @@
     <ClInclude Include="modeleruiwindows.h" />
     <ClInclude Include="modelerview.h" />
     <ClInclude Include="bitmap.h" />
-    <ClInclude Include="particle.h" />
     <ClInclude Include="particleSystem.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="pointObj.h" />
