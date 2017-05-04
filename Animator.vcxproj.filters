@@ -123,6 +123,9 @@
     <ClCompile Include="catnullromcurveevaluator.cpp">
       <Filter>Source Files\Curves</Filter>
     </ClCompile>
+    <ClCompile Include="bsplinecurveevaluator.cpp">
+      <Filter>Source Files\Curves</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="curve.h">
@@ -150,9 +153,6 @@
       <Filter>Header Files\Model.</Filter>
     </ClInclude>
     <ClInclude Include="bitmap.h">
-      <Filter>Header Files\Particles.</Filter>
-    </ClInclude>
-    <ClInclude Include="particle.h">
       <Filter>Header Files\Particles.</Filter>
     </ClInclude>
     <ClInclude Include="particleSystem.h">
@@ -208,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="matrix.h">
       <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="bsplinecurveevaluator.h">
+      <Filter>Header Files\Curves.</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
