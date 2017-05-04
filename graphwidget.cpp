@@ -23,12 +23,13 @@
 #include <fstream>
 
 #include "GraphWidget.h"
-
 #include "LinearCurveEvaluator.h"
 #include "beziercurveevaluator.h"
 #include "bsplinecurveevaluator.h"
 #include "catnullromcurveevaluator.h"
 #include "c2interpolatingcurveevaluator.h"
+#include "bsplinecurveevaluator.h"
+
 
 #define LEFT		1
 #define MIDDLE		2
@@ -124,6 +125,7 @@ m_flcCurrCurve(FL_BLACK)
 	m_ppceCurveEvaluators[CURVE_TYPE_CATMULLROM] = new CatnullRomEvaluator();
 	// Note that C2-Interpolating curve is not a requirement
 	m_ppceCurveEvaluators[CURVE_TYPE_C2INTERPOLATING] = new C2InterPolatingCurveEvaluator();
+	m_ppceCurveEvaluators[CURVE_TYPE_SUBDIVISION] = new SubdivisionCurveEvaluator();
 
 }
 

@@ -262,6 +262,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="subsivisioncurveevaluator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="beziercurveevaluator.h" />
@@ -270,6 +271,7 @@
     <ClInclude Include="catnullromcurveevaluator.h" />
     <ClInclude Include="curve.h" />
     <ClInclude Include="curveevaluator.h" />
+    <ClInclude Include="subsivisioncurveevaluator.h" />
     <ClInclude Include="InverseKinematics.h" />
     <ClInclude Include="linearcurveevaluator.h" />
     <ClInclude Include="camera.h" />
