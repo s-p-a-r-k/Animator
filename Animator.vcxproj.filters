@@ -170,9 +170,6 @@
     <ClInclude Include="indicatorwindow.h">
       <Filter>Header Files\UI.</Filter>
     </ClInclude>
-    <ClInclude Include="modelerapp.h">
-      <Filter>Header Files\UI.</Filter>
-    </ClInclude>
     <ClInclude Include="rect.h">
       <Filter>Header Files\UI.</Filter>
     </ClInclude>
@@ -208,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="matrix.h">
       <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="modelerapp.h">
+      <Filter>Header Files\Model.</Filter>
     </ClInclude>
     <ClInclude Include="bsplinecurveevaluator.h">
       <Filter>Header Files\Curves.</Filter>

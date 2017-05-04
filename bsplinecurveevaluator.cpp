@@ -31,7 +31,7 @@ void BSplineCurveEvaluator::evaluateCurve(const std::vector<Point>& ptvCtrlPts,
 
 	BezierCurveEvaluator bezierCurveEvaluator;
 	for (size_t i = 0; i + 3 < result.size(); i++) {
-		Vec4d xVal(1.0 * result[i].x + 4.0 * result[i + 1].x + 1.0 * result[i + 2].x + 0.0 * result[i + 3].x, 
+		Vec4d xVal(1.0 * result[i].x + 4.0 * result[i + 1].x + 1.0 * result[i + 2].x + 0.0 * result[i + 3].x,
 			0.0 * result[i].x + 4.0 * result[i + 1].x + 2.0 * result[i + 2].x + 0.0 * result[i + 3].x,
 			0.0 * result[i].x + 2.0 * result[i + 1].x + 4.0 * result[i + 2].x + 0.0 * result[i + 3].x,
 			0.0 * result[i].x + 1.0 * result[i + 1].x + 4.0 * result[i + 2].x + 1.0 * result[i + 3].x);
@@ -39,7 +39,7 @@ void BSplineCurveEvaluator::evaluateCurve(const std::vector<Point>& ptvCtrlPts,
 			0.0 * result[i].y + 4.0 * result[i + 1].y + 2.0 * result[i + 2].y + 0.0 * result[i + 3].y,
 			0.0 * result[i].y + 2.0 * result[i + 1].y + 4.0 * result[i + 2].y + 0.0 * result[i + 3].y,
 			0.0 * result[i].y + 1.0 * result[i + 1].y + 4.0 * result[i + 2].y + 1.0 * result[i + 3].y);
-		
+
 		xVal = xVal / 6.0;
 		yVal = yVal / 6.0;
 
