@@ -10,9 +10,17 @@
 #include "mat.h"
 #include "modelerui.h"
 #include "bitmap.h"
+#include <map>
 #include <iostream>
 #include <vector>
+#include <string>
+#include <gl/GL.h>
+#include <gl/GLU.h>
 using namespace std;
+
+enum class MyModelBody {
+	UPPERARM, LOWERARM, THIGH, SHANK, HEAD, UPPERTORSO, LOWERTORSO, NONE
+};
 
 // To make a SampleModel, we inherit off of 
 class MyModel : public ModelerView
@@ -41,6 +49,10 @@ private:
 	void recursionTree3D(Vec3f dir, Vec3f nextdir, Vec3f currentLocationint, float length);
 	void changeAnimationAngle();
 	void loadHeightField();
+
+	GLubyte* hiddenBuffer;
+	std::map<MyModelBody, float*> bodyId;
+	std::map<MyModelBody, std::string> bodyString;
 public:
 	MyModel(int x, int y, int w, int h, char *label)
 		: ModelerView(x, y, w, h, label) {
@@ -54,6 +66,26 @@ public:
 		isAnimationOn = false;
 		isTextureLoaded = false;
 		loadHeightField();
+
+		bodyId[MyModelBody::UPPERARM] = new float[3] {0.12f, 0, 0};
+		bodyId[MyModelBody::LOWERARM] = new float[3] {0.24f, 0, 0};
+		bodyId[MyModelBody::THIGH] = new float[3] {0.36f, 0, 0};
+		bodyId[MyModelBody::SHANK] = new float[3] {0.48f, 0, 0};
+		bodyId[MyModelBody::HEAD] = new float[3] {0.58f, 0, 0};
+		bodyId[MyModelBody::UPPERTORSO] = new float[3] {0.70f, 0, 0};
+		bodyId[MyModelBody::LOWERTORSO] = new float[3] {0.84f, 0.12f, 0};
+		bodyId[MyModelBody::NONE] = new float[3] {0.0f, 0, 0};
+
+		bodyString[MyModelBody::UPPERARM] = "upper arm";
+		bodyString[MyModelBody::LOWERARM] = "lower arm";
+		bodyString[MyModelBody::THIGH] = "thigh";
+		bodyString[MyModelBody::SHANK] = "shannk";
+		bodyString[MyModelBody::HEAD] = "head";
+		bodyString[MyModelBody::UPPERTORSO] = "upper torso";
+		bodyString[MyModelBody::LOWERTORSO] = "lower torso";
+		bodyString[MyModelBody::NONE] = "none";
+
+		hiddenBuffer = nullptr;
 	}
 	~MyModel() {
 		delete rightArm;
@@ -63,6 +95,8 @@ public:
 		delete[] vertexColor;
 	}
 	float* getRotateAngles(Vec3f target);//input an target vector,the funtion will return 2 float value,first is rotate from z coord about x,and second value is rotate about y
+
+	int handle(int event);
 
 	virtual void draw();
 	void drawUpperArm();//including elbow
@@ -84,6 +118,54 @@ public:
 	void drawHeightField();
 };
 
+
+
+int MyModel::handle(int event)
+{
+	unsigned eventCoordX = Fl::event_x();
+	unsigned eventCoordY = Fl::event_y();
+	unsigned eventButton = Fl::event_button();
+	unsigned eventState = Fl::event_state();
+
+	switch (event)
+	{
+	case FL_PUSH:
+		if (eventButton == FL_LEFT_MOUSE && hiddenBuffer != nullptr)
+		{
+			int offset = (eventCoordX + (h() - eventCoordY) * w()) * 3;
+			double val = hiddenBuffer[offset] / 255.0;
+			int refIndex = 0;
+			if (val > 0.9)
+			{
+				val = hiddenBuffer[offset + 1] / 255.0;
+				refIndex = 1;
+			}
+
+			double mindiff = 100;
+			MyModelBody part = MyModelBody::NONE;
+			for (auto pair : bodyId)
+			{
+				double diff = val - pair.second[refIndex];
+				if (diff > 0 && diff < mindiff)
+				{
+					mindiff = diff;
+					part = pair.first;
+				}
+			}
+
+			// printf("val = %.2f, ref = %d, mindiff = %.2f, you clicked on %s.\n", val, refIndex, mindiff, partNames[part].c_str());
+			printf("You clicked on %s.\n", bodyString[part].c_str());
+		}
+		break;
+	default:
+		break;
+	}
+
+	return ModelerView::handle(event);
+}
+
+
+
 // We need to make a creator function, mostly because of
 // nasty API stuff that we'd rather stay away from.
 ModelerView* createSampleModel(int x, int y, int w, int h, char *label)
@@ -96,7 +178,6 @@ ModelerView* createSampleModel(int x, int y, int w, int h, char *label)
 // method of ModelerView to draw out SampleModel
 void MyModel::draw()
 {
-	
 	// This call takes care of a lot of the nasty projection 
 	// matrix stuff.  Unless you want to fudge directly with the 
 	// projection matrix, don't bother with this ...
@@ -342,6 +423,21 @@ void MyModel::draw()
 	
 	if(VAL(HEIGHTFIELD))
 		drawHeightField();
+
+	static int prevW = -1;
+	static int prevH = -1;
+	int drawWidth = w();
+	int drawHeight = h();
+
+	if (prevW != drawWidth || prevH != drawHeight)
+	{
+		if (hiddenBuffer != nullptr)
+			delete[] hiddenBuffer;
+		hiddenBuffer = new GLubyte[drawWidth * drawHeight * 3];
+	}
+
+	prevW = drawWidth;
+	prevH = drawHeight;
 }
 
 int main()
